@@ -1,0 +1,6 @@
+pip install websockets
+pip install azure-eventhub
+pip install azure-identity
+pip install aiohttp
+pip install azure.eventhub
+pip install python-dotenv
