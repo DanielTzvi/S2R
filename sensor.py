@@ -1,12 +1,16 @@
 import asyncio
 import websockets
 import random
-import time
+
 
 async def send_random_messages(websocket, path):
+    min_x, max_x = -10, 10
+    min_y, max_y = -10, 10
     while True:
-        message = f"Random message: {random.randint(1, 100)}"
-        await websocket.send(message)
+        x = random.uniform(min_x, max_x)
+        y = random.uniform(min_y, max_y)
+        random_point = (x, y)
+        await websocket.send(f"Random Point: {random_point}")
         await asyncio.sleep(1)  # Send a message every 1 second
 
 start_server = websockets.serve(send_random_messages, "localhost", 8765)

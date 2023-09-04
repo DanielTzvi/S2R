@@ -25,10 +25,11 @@ async def receive_messages():
                 # Create a batch.
                 event_data_batch = await producer.create_batch()
 
+                # Handasah adds calculations here
+                # Response calculations
+
                 # Add events to the batch.
-                event_data_batch.add(EventData("First event "))
-                event_data_batch.add(EventData("Second event"))
-                event_data_batch.add(EventData("Third event"))
+                event_data_batch.add(EventData(response))
 
                 # Send the batch of events to the event hub.
                 await producer.send_batch(event_data_batch)
