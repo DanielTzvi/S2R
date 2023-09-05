@@ -4,6 +4,7 @@ import os
 from azure.eventhub import EventData
 from azure.eventhub.aio import EventHubProducerClient
 from dotenv import load_dotenv
+import json
 
 async def receive_messages():
     load_dotenv()
@@ -18,6 +19,7 @@ async def receive_messages():
     async with websockets.connect(uri) as websocket:
         while True:
             response = await websocket.recv()
+            print("type:", type(response))
             print(f"Received: {response}")
              # the event hub name.
 
