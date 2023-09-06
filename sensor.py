@@ -19,8 +19,10 @@ async def send_random_messages(websocket):
         # x = random.uniform(min_x, max_x)
         # y = random.uniform(min_y, max_y)
         # random_point = (x, y)
+        print("[!] check")
+
         await websocket.send(json_data)
-        await asyncio.sleep(5)  # Send a message every 1 second
+        await asyncio.sleep(1)  # Send a message every 1 second
 
 start_server = websockets.serve(send_random_messages, "localhost", 8765)
 
