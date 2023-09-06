@@ -6,14 +6,14 @@ import rstr
 
 
 async def send_random_messages(websocket):
-    min_x, max_x = -10, 10
-    min_y, max_y = -10, 10
+    min_lat, max_lat = 30, 32
+    min_long, max_long = 34, 36
     plains = [rstr.xeger(r'^[0-9a-z]{2}-[0-9a-z]{2,5}$') for x in range(3)]
 
     while True:
         my_object = {
-            'lat': random.uniform(min_x, max_x),
-            'long': random.uniform(min_y, max_y),
+            'lat': random.uniform(min_lat, max_lat),
+            'long': random.uniform(min_long, max_long),
             'altitude': random.uniform(0, 13.0),
             'id': random.choice(plains),
             'speed': random.uniform(0, 4024.0),
