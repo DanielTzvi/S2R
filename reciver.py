@@ -46,6 +46,7 @@ async def receive_messages():
                         break
                     except Exception as err:
                         print(err)
+                        break
         except Exception as ex:
             print(f"Error creating EventHubProducerClient: {ex}")
             await asyncio.sleep(1)

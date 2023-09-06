@@ -21,7 +21,8 @@ async def send_random_messages(websocket):
             'id': random.choice(aircraft),
             'speed': random.uniform(0, 4024.0),
             'dst': 'BCN',
-            'src': 'TLV'
+            'src': 'TLV',
+            'counter': counter
         }
 
         json_data = json.dumps(my_object)
@@ -32,20 +33,22 @@ async def send_random_messages(websocket):
         except websockets.exceptions.ConnectionClosed:
             await asyncio.sleep(1)
             print("ConnectionClosedError. Reconnecting...")
-            return  # Exit this coroutine and let the outer loop handle reconnection
+            break  # Exit this coroutine and let the outer loop handle reconnection
         except websockets.exceptions.InvalidHandshake:
             await asyncio.sleep(1)
             print("InvalidHandshakeError. Reconnecting...")
-            return  # Exit this coroutine and let the outer loop handle reconnection
+            break  # Exit this coroutine and let the outer loop handle reconnection
         except Exception as err:
             await asyncio.sleep(1)
             print(err)
+            break
 
 async def main():
     while True:
         try:
             async with websockets.serve(send_random_messages, "localhost", 8765):
                 await asyncio.Future()  # run forever
+                
         except Exception as ex:
             print(f"Error starting WebSocket server: {ex}")
             await asyncio.sleep(1)
