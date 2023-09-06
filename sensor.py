@@ -2,19 +2,26 @@ import asyncio
 import websockets
 import random
 import json
+import rstr
+
 
 async def send_random_messages(websocket):
+    aircraft = [rstr.xeger(r'^[0-9a-z]{2}-[0-9a-z]{2,5}$') for x in range(3)]
     min_x, max_x = -180, 180
     min_y, max_y = -90, 90
+
     counter = 0
+
     while True:
         counter += 1
         my_object = {
-            'x': random.uniform(min_x, max_x),
-            'y': random.uniform(min_y, max_y),
-            'destination': (30, 40),
-            'source': (0, 0),
-            'counter': counter
+            'lat': random.uniform(min_y, max_y),
+            'long': random.uniform(min_x, max_x),
+            'altitude': random.uniform(0, 13.0),
+            'id': random.choice(aircraft),
+            'speed': random.uniform(0, 4024.0),
+            'dst': 'BCN',
+            'src': 'TLV'
         }
 
         json_data = json.dumps(my_object)
