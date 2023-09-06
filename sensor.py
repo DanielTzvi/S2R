@@ -4,17 +4,18 @@ import random
 import json
 import rstr
 
+
 async def send_random_messages(websocket):
-    print('hi, i just wanna say hello')
     min_x, max_x = -10, 10
     min_y, max_y = -10, 10
+    plains = [rstr.xeger(r'^[0-9a-z]{2}-[0-9a-z]{2,5}$') for x in range(3)]
 
     while True:
         my_object = {
             'lat': random.uniform(min_x, max_x),
             'long': random.uniform(min_y, max_y),
             'altitude': random.uniform(0, 13.0),
-            'id': rstr.xeger(r'^[0-9a-z]{2}-[0-9a-z]{2,5}$'),
+            'id': random.choice(plains),
             'speed': random.uniform(0, 4024.0),
             'dst': 'BCN',
             'src': 'TLV'
