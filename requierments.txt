@@ -4,3 +4,4 @@ azure-identity
 aiohttp
 azure.eventhub
 python-dotenv
+rstr
