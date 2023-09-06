@@ -8,7 +8,7 @@ import json
 
 
 def error(e):
-    print(e)
+    print(str(e))
 
 
 async def receive_messages():
@@ -42,7 +42,6 @@ async def receive_messages():
                         # Send the batch of events to the event hub.
                         await producer.send_batch(event_data_batch)
                         print('sent data to event hub')
-        except:
-            print('error')
-
+        except Exception as e:
+            print(str(e))
 asyncio.get_event_loop().run_until_complete(receive_messages())
