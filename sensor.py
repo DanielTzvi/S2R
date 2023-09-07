@@ -9,6 +9,7 @@ async def send_random_messages(websocket):
     min_lat, max_lat = 30, 32
     min_long, max_long = 34, 36
     aircraft = [rstr.xeger(r'^[0-9a-z]{2}-[0-9a-z]{2,5}$') for x in range(3)]
+    counter = 0 
 
     while True:
         counter += 1
