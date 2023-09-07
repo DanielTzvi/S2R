@@ -4,6 +4,9 @@ import random
 import json
 import rstr
 
+# Global variable to control server termination
+server_running = True
+
 
 async def send_random_messages(websocket):
     min_lat, max_lat = 30, 32
@@ -43,13 +46,30 @@ async def send_random_messages(websocket):
             break
 
 async def main():
-    while True:
+    global server_running
+    while server_running:
         try:
             async with websockets.serve(send_random_messages, "localhost", 8765):
-                await asyncio.Future()  # run forever
-                
+                await asyncio.Future()  # Keep the event loop running
+
         except Exception as ex:
             print(f"Error starting WebSocket server: {ex}")
             await asyncio.sleep(1)
 
-asyncio.run(main())
+def stop_server():
+    global server_running
+    server_running = False
+
+# Your send_random_messages function here
+
+if __name__ == "__main__":
+    loop = asyncio.get_event_loop()
+    try:
+        loop.run_until_complete(main())
+    except KeyboardInterrupt:
+        # Handle Ctrl+C gracefully
+        stop_server()
+        loop.run_until_complete(asyncio.gather(*asyncio.all_tasks()))
+    finally:
+        loop.close()
+
